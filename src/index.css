@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* IMDb-inspired natural colors for movie lovers */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 48 89% 52%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 48 89% 52%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
+    --ring: 48 89% 52%;
+    --radius: 0.5rem;
+    
+    /* Custom Movie-themed Colors */
+    --imdb-yellow: 48 89% 52%;
+    --imdb-gold: 43 74% 49%;
+    --cinema-red: 0 72% 51%;
+    --theater-blue: 217 91% 60%;
+    --popcorn-cream: 45 93% 85%;
+    --film-silver: 0 0% 75%;
+    --spotlight: 0 0% 100%;
+    
+    /* Easing */
+    --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #f5c518, #d4a017);
+  }
+  
+  .bg-gradient-cinema {
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(245, 197, 24, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(212, 160, 23, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(245, 197, 24, 0.03) 0%, transparent 70%);
+  }
+  
+  .glow-gold {
+    box-shadow: 0 0 40px rgba(245, 197, 24, 0.25);
+  }
+  
+  .glow-cinema {
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.2);
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 197, 24, 0.25); }
+  50% { box-shadow: 0 0 40px rgba(245, 197, 24, 0.45); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+}
+
+@keyframes poster-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10px, -10px) rotate(1deg); }
+  50% { transform: translate(0, -15px) rotate(0deg); }
+  75% { transform: translate(-10px, -10px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes poster-drift-slow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(15px, 5px) rotate(2deg); }
+  66% { transform: translate(-10px, 10px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s var(--ease-expo-out) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s var(--ease-expo-out) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.7s var(--ease-expo-out) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.7s var(--ease-expo-out) forwards;
+}
+
+.animate-flip-in {
+  animation: flip-in 0.8s var(--ease-spring) forwards;
+}
+
+.animate-poster-drift {
+  animation: poster-drift 20s ease-in-out infinite;
+}
+
+.animate-poster-drift-slow {
+  animation: poster-drift-slow 25s ease-in-out infinite;
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Input focus glow */
+.input-glow:focus {
+  box-shadow: 0 0 20px rgba(245, 197, 24, 0.3);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
