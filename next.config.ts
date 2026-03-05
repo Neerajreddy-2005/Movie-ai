@@ -1,15 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Proxy API requests to the Express server during development
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*',
-      },
-    ];
-  },
+  // additional config can go here if needed
 };
 
 export default nextConfig;

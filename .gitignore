@@ -35,5 +35,9 @@ Thumbs.db
 .cache/
 .eslintcache
 
+# Playwright
+playwright-report/
+test-results/
+
 # TypeScript
 *.tsbuildinfo

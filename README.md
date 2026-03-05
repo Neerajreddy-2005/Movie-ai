@@ -14,13 +14,14 @@ A web app that lets you enter an **IMDb movie ID** (e.g. `tt0133093`) and displa
 | Layer    | Technology |
 |----------|------------|
 | Frontend | React (via **Next.js** 15), TypeScript, Tailwind CSS |
-| Backend  | Node.js (Express) — API server for movie + sentiment |
+| Backend  | Node.js (Next.js API route) — serverless function for movie + sentiment |
 | Data     | OMDb API (movie metadata); OpenRouter (AI summarization) |
 
 ### Why this stack?
 
 - **Next.js**: Aligns with the requirement for "React via Next.js", supports app router, SSR-ready, and fits scalable web apps.
-- **Node.js / Express**: Simple, same language as the frontend; keeps API logic separate and easy to extend.
+- **Next.js API route**: The API logic lives in `src/app/api/movie/route.ts` and runs as a serverless
+  function on hosting platforms (Netlify, Vercel, etc.).
 - **TypeScript**: Type safety and better maintainability across frontend and shared logic.
 - **OMDb**: Reliable movie metadata by IMDb ID; no scraping needed for basic details.
 - **OpenRouter**: Single API for multiple AI models for sentiment summarization.
@@ -66,7 +67,7 @@ PORT=3001
 
 ### 3. Run development
 
-Start both the **Next.js frontend** and the **Express API server**:
+Start the Next.js development server (the API route is served automatically):
 
 ```bash
 npm run dev
@@ -124,7 +125,7 @@ So “reviews” here are **OMDb-backed, synthetic audience signals**, not real 
 
 - **IMDb ID format**: Valid IDs match `tt` followed by at least 7 digits (e.g. `tt0133093`).
 - **OMDb**: Single source of truth for movie metadata (title, poster, cast, year, rating, plot). Movies must exist on OMDb.
-- **API server**: The Express server must be running and reachable at the URL the frontend uses for `/api` (in dev, proxied to `http://localhost:3001`).
+-- **API route**: The POST `/api/movie` endpoint is handled by Next.js; no separate server is required.
 - **Env vars**: `OMDB_API_KEY` and `OPENROUTER_API_KEY` are required for full functionality; without them, movie fetch or AI summary will fail or be disabled.
 - **Sentiment**: Classification is **positive**, **mixed**, or **negative** as per the requirement; the UI shows “MIXED” (not “neutral”) for mixed sentiment.
 - **No poster**: If OMDb does not return a poster, the app shows a “No poster available” placeholder.
@@ -143,7 +144,7 @@ So “reviews” here are **OMDb-backed, synthetic audience signals**, not real 
 │   ├── lib/                # API client, shared utilities
 │   └── types/              # TypeScript types
 ├── server/
-│   └── index.ts            # Express API (POST /api/movie)
+│   └── index.ts            # deprecated Express API (migrated to app/api/movie/route.ts)
 ├── tests/
 │   └── e2e/               # Playwright E2E tests
 ├── next.config.ts
