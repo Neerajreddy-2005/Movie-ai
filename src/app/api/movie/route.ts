@@ -1,4 +1,4 @@
-import { NextRequest } from "next";
+// No imports needed for Request and Response
 import {
   fetchMovieDetails,
   validateImdbId,
@@ -9,8 +9,8 @@ import {
   type SentimentResult,
 } from "../../../lib/ai";
 
-export async function POST(req: NextRequest) {
-  const body = await req.json().catch(() => ({}));
+export async function POST(request: Request) {
+  const body = await request.json().catch(() => ({}));
   const rawId = typeof body.imdbId === "string" ? body.imdbId : "";
 
   if (!rawId) {
